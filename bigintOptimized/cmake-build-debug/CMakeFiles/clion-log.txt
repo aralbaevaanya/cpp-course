@@ -1,0 +1,4 @@
+/home/vadim/study/CLion/clion-2017.3.4/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -DCMAKE_C_COMPILER=/usr/bin/cc -DCMAKE_CXX_COMPILER=/usr/bin/c++ -G "CodeBlocks - Unix Makefiles" /home/vadim/study/Projects/Belbec/bigIntOptimized/cpp-course/bigint
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/vadim/study/Projects/Belbec/bigIntOptimized/cpp-course/bigint/cmake-build-debug
