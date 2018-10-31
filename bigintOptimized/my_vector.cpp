@@ -27,16 +27,18 @@ size_t my_vector::size() const {
 }
 
 my_vector &my_vector::operator=(my_vector const &other) {
-    is_small = other.is_small;
-    cnt_elements = other.cnt_elements;
-    if (is_small) {
+    if(!is_small){
+        vec.reset();
+    }
+    if (other.is_small) {
         for (size_t i = 0; i < SMALL_SIZE; i++) {
             digit[i] = other.digit[i];
         }
     } else {
-        // vec = other.vec;
         new (&vec) std::shared_ptr<std::vector<uint32_t>>(other.vec);
     }
+    is_small = other.is_small;
+    cnt_elements = other.cnt_elements;
     return *this;
 
 }
@@ -132,13 +134,15 @@ void my_vector::copy() {
     if (cnt_elements <= SMALL_SIZE) {
         is_small = true;
         auto a = std::shared_ptr<std::vector<uint32_t>>(vec);
+        vec.reset();
         for (size_t i = 0; i < SMALL_SIZE; ++i) {
             digit[i] = a->at(i);
         }
+      //  a.reset();
     }else {
-        auto vec1 = std::make_shared<std::vector<uint32_t>>(*vec); //it isn`t memory leaks, because vec.reset after
+        std::vector<uint32_t > p (*vec);
         vec.reset();
-        vec = vec1;
+        vec = std::make_shared<std::vector<uint32_t>>(p);
     }
 }
 
@@ -150,7 +154,7 @@ my_vector::my_vector(my_vector const &other) {
             (*this).digit[i] = other.digit[i];
         }
     } else {
-        // vec = other.vec;
+
         new (&vec) std::shared_ptr<std::vector<uint32_t>>(other.vec);
     }
 }

@@ -57,7 +57,7 @@ void big_integer::clear() {
     while (digits.size() > 1 && !digits.back()) {
         digits.pop_back();
     }
-    if (digits.size() == 1 && digits[0] == 0 || digits.size() == 0) {
+    if ((digits.size() == 1 && digits[0] == 0 )|| digits.size() == 0) {
         *this = big_integer();
     }
 }
@@ -136,7 +136,7 @@ void mul(big_integer &left, uint32_t a) {
         if (i == left.digits.size()) {
             left.digits.push_back(0);
         }
-        uint64_t buf = left.digits[i] * static_cast<uint64_t> a + carry;
+        uint64_t buf = left.digits[i] * static_cast<uint64_t> (a) + carry;
         carry = static_cast<uint32_t>(buf / BASE);
         left.digits[i] = static_cast<uint32_t>(buf % BASE);
     }
@@ -151,7 +151,7 @@ big_integer &big_integer::operator*=(big_integer const &rhs) {
     for (size_t i = 0; i < digits.size(); ++i) {
         uint32_t carry = 0;
         for (size_t j = 0; j < rhs.digits.size() || carry; ++j) {
-            buf = static_cast<uint64_t> ans.digits[i + j] + static_cast<uint64_t> digits[i] * (j < rhs.digits.size() ? rhs.digits[j] : 0) +
+            buf = static_cast<uint64_t> (ans.digits[i + j]) + static_cast<uint64_t> (digits[i]) * (j < rhs.digits.size() ? rhs.digits[j] : 0) +
                   carry;
             ans.digits[i + j] = static_cast<uint32_t>(buf % BASE);
             carry = static_cast<uint32_t>(buf / BASE);
